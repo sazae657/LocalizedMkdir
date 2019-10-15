@@ -1,0 +1,21 @@
+#!/bin/bash
+kN=$@
+if [ "x" = "x${kN}" ];then
+   echo "Usage: $0 dir1 [dir2, ...]"
+   exit 9
+fi
+
+for K in ${kN[@]}
+do
+	kLocalized="${K}.localized/.localized"
+	if [ -d ${kLocalized} ];then
+		echo "${K}: Already localized"
+		continue
+	fi
+	mkdir -p ${kLocalized} || exit 9
+cat << EOS >${kLocalized}/en.strings
+"${K}" = "💩";
+EOS
+
+done
+
